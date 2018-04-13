@@ -1,0 +1,19 @@
+{
+  "name": "windtalk",
+  "version": "0.0.1",
+  "description": "Simplest way to communicate between two windows/iframes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pshihn/windtalk.git"
+  },
+  "author": "Preet Shihn <preetshihn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pshihn/windtalk/issues"
+  },
+  "homepage": "https://github.com/pshihn/windtalk#readme"
+}
