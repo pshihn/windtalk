@@ -2,7 +2,7 @@
 
 # Windtalk
 
-Micro lib (742 bytes gzipped) that provides a seamless way for two '_**wind**_'ows to _**talk**_ to each other. 
+Micro lib (742 bytes gzipped) that provides a seamless way for two <b><i>wind</i></b>ows to <b><i>talk</i></b> to each other. 
 
 * Work with objects/functions defined in another window/iframe. 
 * All calls are async. Works great with async/await.
