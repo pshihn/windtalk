@@ -56,7 +56,7 @@ npm install --save windtalk
 ```
 
 ## Full API
-[windtalk API](https://github.com/pshihn/windtalk/wiki/Windtalk-API)
+[Windtalk API](https://github.com/pshihn/windtalk/wiki/Windtalk-API)
 
 ## Examples
 See the [examples folder](https://github.com/pshihn/windtalk/tree/master/examples).
