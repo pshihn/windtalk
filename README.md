@@ -1,8 +1,8 @@
 ![windtalk banner](https://pshihn.github.io/windtalk/images/banner.png)
 
-# Windtalk
+# windtalk  🗣💨
 
-Micro lib (742 bytes gzipped) that provides a seamless way for two <b><i>wind</i></b>ows to <b><i>talk</i></b> to each other. 
+Micro lib (742 bytes gzipped) that provides a seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other. 
 
 * Work with objects/functions defined in another window/iframe. 
 * All calls are async. Works great with async/await.
@@ -54,6 +54,9 @@ or from npm:
 ```
 npm install --save windtalk
 ```
+
+## Full API
+[windtalk API](https://github.com/pshihn/windtalk/wiki/Windtalk-API)
 
 ## Examples
 See the [examples folder](https://github.com/pshihn/windtalk/tree/master/examples).
