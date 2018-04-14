@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <title>Windtalk two-window example</title>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 5px;
+    }
+
+    p {
+      margin: 3px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainPanel" style="display: none;">
+    <div id="messages"></div>
+    <div>
+      <input id="txt" placeholder="Enter message">
+      <button onclick="send();">Send</button>
+    </div>
+  </div>
+  <div id="launchPanel" style="display: none;">
+    <button onclick="launchPopup();">Launch remoteAddMessage window</button>
+  </div>
+
+  <script>
+    const byId = id => document.getElementById(id);
+    const mainPanel = byId('mainPanel');
+    const launchPanel = byId('launchPanel');
+    const messages = byId('messages');
+
+    var remoteAddMessage;
+
+    function addMessage(text) {
+      let p = document.createElement('p');
+      p.textContent = text;
+      messages.appendChild(p);
+    }
+
+    function send() {
+      let text = byId('txt').value.trim();
+      if (text && remoteAddMessage) {
+        remoteAddMessage(text);
+        byId('txt').value = "";
+      }
+    }
+
+    function launchPopup() {
+      let w = window.open(window.location.href);
+      remoteAddMessage = windtalk.link(w);
+      launchPanel.style.display = "none";
+      mainPanel.style.display = "";
+    }
+
+    if (window.opener) {
+      mainPanel.style.display = "";
+      remoteAddMessage = windtalk.link(window.opener);
+    } else {
+      launchPanel.style.display = "";
+    }
+
+    windtalk.expose(addMessage);
+  </script>
+
+</body>
+
+
+</html>
