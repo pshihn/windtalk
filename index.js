@@ -9,7 +9,7 @@ function proxy(remote, path) {
         const p = remote.post({ type: 'GET', path });
         return p.then.bind(p);
       }
-      return _proxy(remote, path.concat(prop));
+      return proxy(remote, path.concat(prop));
     },
     set(_, prop, value) {
       return remote.post({ type: 'SET', path: path.concat(prop), value });
@@ -28,7 +28,7 @@ class Remote {
     this.uid = `${Date.now()}-${randomInt()}`;
     this.c = 0; // counter
     this.cbs = {} // callbacks
-    w.addEventListener('message', event => {
+    self.addEventListener('message', event => {
       const id = event.data && event.data.id;
       const cb = id && this.cbs[id];
       if (cb) {
@@ -57,8 +57,8 @@ export function link(endPoint) {
 
 export function expose(target, endPoint) {
   const _target = target;
-  const w = endPoint || self;
-  w.addEventListener('message', async event => {
+  const w = endPoint || window.top;
+  self.addEventListener('message', async event => {
     const data = event.data || {};
     data.path = data.path || [];
     const reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
