@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #colorPanel {
+      display: block;
+      margin: 20px auto;
+      height: 150px;
+      width: 150px;
+      background: #000;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="colorPanel"></div>
+
+  <script>
+    const color = {
+      red: 0,
+      green: 0,
+      blue: 0,
+      update: function () {
+        const panel = document.getElementById('colorPanel');
+        panel.style.background = `rgb(${this.red},${this.green},${this.blue})`;
+      }
+    }
+    windtalk.expose(color);
+  </script>
+</body>
+
+</html>
