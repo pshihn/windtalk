@@ -33,6 +33,8 @@ color.update();
 ```
 
 ### Expose Functions (not just objects)
+Consider a case where one window wants to invoke a function in another window (or iframe) and get the result back.
+
 Window1:
 ```javascript
 function doAdd(a, b) {
