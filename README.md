@@ -38,7 +38,7 @@ Consider a case where one window wants to invoke a function in another window (o
 Window1:
 ```javascript
 function doAdd(a, b) {
-  retudn a + b;
+  return a + b;
 }
 windtalk.expose(doAdd);
 ```
