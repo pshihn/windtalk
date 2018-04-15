@@ -18,13 +18,15 @@
 <body>
   <div id="mainPanel" style="display: none;">
     <div id="messages"></div>
-    <div>
+    <div style="padding-top: 20px;">
+      <h4 style="margin-bottom: 5px;">Sending a message from here will show up in the other window.</h4>
       <input id="txt" placeholder="Enter message">
       <button onclick="send();">Send</button>
     </div>
   </div>
   <div id="launchPanel" style="display: none;">
-    <button onclick="launchPopup();">Launch remoteAddMessage window</button>
+    <h4>Launch window to talk to</h4>
+    <button onclick="launchPopup();">Launch window</button>
   </div>
 
   <script>
