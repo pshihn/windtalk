@@ -59,7 +59,7 @@ npm install --save windtalk
 [Windtalk API](https://github.com/pshihn/windtalk/wiki/Windtalk-API)
 
 ## Examples
-See the [examples folder](https://github.com/pshihn/windtalk/tree/master/examples).
+[Examples page](https://github.com/pshihn/windtalk/wiki/Examples)
 
 ## License
 [MIT License](https://github.com/pshihn/windtalk/blob/master/LICENSE) (c) [Preet Shihn](https://twitter.com/preetster)
