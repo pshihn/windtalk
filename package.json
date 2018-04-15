@@ -1,8 +1,9 @@
 {
   "name": "windtalk",
-  "version": "0.0.1",
-  "description": "Simplest way to communicate between two windows/iframes",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "Simplest way to communicate between windows/iframes.",
+  "main": "dist/windtalk.umd.js",
+  "jsnext:main": "index.js",
   "scripts": {
     "build": "npm run build-d && npm run build-umd",
     "build-d": "rollup index.js --o dist/windtalk.js --f iife --name \"windtalk\" && npm run minify-d",
@@ -15,7 +16,14 @@
     "type": "git",
     "url": "git+https://github.com/pshihn/windtalk.git"
   },
-  "author": "Preet Shihn <preetshihn@gmail.com>",
+  "keywords": [
+    "window",
+    "iframe",
+    "rpc",
+    "proxy",
+    "window messaging"
+  ],
+  "author": "Preet Shihn <preetshihn@gmail.com> (https://twitter.com/preetster)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pshihn/windtalk/issues"
