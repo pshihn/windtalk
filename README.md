@@ -8,8 +8,10 @@ Micro lib (742 bytes gzipped) that provides a seamless way for two <b><i>WIND</i
 * All calls are async. Works great with async/await.
 
 ## Usage
+Let's consider a case where a parent window wants to interact with an object in an iframe.
 
-In the iFrame:
+
+In the iframe:
 ```javascript
 const color = {
   red: 0,
@@ -31,6 +33,8 @@ color.update();
 ```
 
 ### Expose Functions (not just objects)
+Consider a case where one window wants to invoke a function in another window (or iframe) and get the result back.
+
 Window1:
 ```javascript
 function doAdd(a, b) {
