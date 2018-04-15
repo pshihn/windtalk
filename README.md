@@ -67,3 +67,6 @@ npm install --save windtalk
 
 ## License
 [MIT License](https://github.com/pshihn/windtalk/blob/master/LICENSE) (c) [Preet Shihn](https://twitter.com/preetster)
+
+### You may also be interested in
+[Workly](https://github.com/pshihn/workly) - A really simple way to move a function or class to a web worker. Or, expose a function or object in a web worker to the main thread.
