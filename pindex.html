@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>windtalk | Communicate between windows and iframes 🗣💨</title>
+  <meta name="description" content="Windtalk is a tiny javascript library which provides the simplest way to communicate between windows and iframes. 🗣💨"
+  />
+  <link rel="icon" href="./images/logo32.jpg" type="image/jpg">
+  <link rel="canonical" href="https://pshihn.github.io/windtalk/" />
+
+  <meta property="og:title" content="windtalk" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:description" content="Windtalk is a tiny javascript library which provides the simplest way to communicate between windows and iframes. 🗣💨"
+  />
+  <meta property="og:url" content="https://pshihn.github.io/windtalk/" />
+  <meta property="og:site_name" content="windtalk" />
+  <meta property="og:image" content="https://pshihn.github.io/windtalk/images/logo.png">
+
+  <meta name="twitter:card" value="summary">
+  <meta property="twitter:url" content="https://pshihn.github.io/windtalk/">
+  <meta property="twitter:title" content="windtalk">
+  <meta property="twitter:description" content="Windtalk is a tiny javascript library which provides the simplest way to communicate between windows and iframes. 🗣💨">
+  <meta property="twitter:image" content="https://pshihn.github.io/windtalk/images/logo.png">
+
+  <script type="application/ld+json">
+    {"name":"windtalk","description":"Windtalk is a tiny javascript library which provides the simplest way to communicate between windows and iframes. 🗣💨","@type":"WebSite","url":"https://pshihn.github.io/windtalk/","headline":"windtalk","@context":"http://schema.org"}
+  </script>
+
+  <link rel="stylesheet" href="/windtalk/assets/css/style.css?v=f3f5bd0bf020b973a85371aef2f6b575c2fa4e07">
+</head>
+
+<body>
+  <div class="container-lg px-3 my-5 markdown-body">
+
+    <h1>
+      <a href="https://pshihn.github.io/windtalk/">windtalk</a>
+    </h1>
+
+
+    <p>
+      <img src="https://pshihn.github.io/windtalk/images/banner.png" alt="windtalk banner" />
+    </p>
+
+    <h1 id="windtalk--">windtalk 🗣💨</h1>
+
+    <p>Micro lib (742 bytes gzipped) that provides a seamless way for two
+      <b>
+        <i>WIND</i>
+      </b>ows to
+      <b>
+        <i>TALK</i>
+      </b> to each other.</p>
+
+    <ul>
+      <li>Work with objects/functions defined in another window/iframe.</li>
+      <li>All calls are async. Works great with async/await.</li>
+    </ul>
+
+    <h2 id="usage">Usage</h2>
+
+    <p>In the iFrame:</p>
+    <div class="language-javascript highlighter-rouge">
+      <div class="highlight">
+        <pre class="highlight"><code><span class="kd">const</span> <span class="nx">color</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">red</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="na">green</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="na">blue</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="na">update</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// update the ui</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">windtalk</span><span class="p">.</span><span class="nx">expose</span><span class="p">(</span><span class="nx">color</span><span class="p">);</span>
+</code></pre>
+      </div>
+    </div>
+    <p>In parent window:</p>
+    <div class="language-javascript highlighter-rouge">
+      <div class="highlight">
+        <pre class="highlight"><code><span class="kd">const</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">windtalk</span><span class="p">.</span><span class="nx">link</span><span class="p">(</span><span class="nx">iframe</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">);</span>
+<span class="nx">color</span><span class="p">.</span><span class="nx">red</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="nx">color</span><span class="p">.</span><span class="nx">green</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+<span class="nx">color</span><span class="p">.</span><span class="nx">blue</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">color</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</code></pre>
+      </div>
+    </div>
+
+    <h3 id="expose-functions-not-just-objects">Expose Functions (not just objects)</h3>
+    <p>Window1:</p>
+    <div class="language-javascript highlighter-rouge">
+      <div class="highlight">
+        <pre class="highlight"><code><span class="kd">function</span> <span class="nx">doAdd</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">retudn</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">windtalk</span><span class="p">.</span><span class="nx">expose</span><span class="p">(</span><span class="nx">doAdd</span><span class="p">);</span>
+</code></pre>
+      </div>
+    </div>
+    <p>Window2:</p>
+
+    <div class="language-javascript highlighter-rouge">
+      <div class="highlight">
+        <pre class="highlight"><code><span class="kd">const</span> <span class="nx">doAdd</span> <span class="o">=</span> <span class="nx">windtalk</span><span class="p">.</span><span class="nx">link</span><span class="p">(</span><span class="nx">win1</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">doAdd</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// 5</span>
+</code></pre>
+      </div>
+    </div>
+
+    <h2 id="install">Install</h2>
+
+    <p>Download the latest from
+      <a href="https://github.com/pshihn/windtalk/tree/master/dist">dist folder</a>
+    </p>
+
+    <p>or from npm:</p>
+    <div class="highlighter-rouge">
+      <div class="highlight">
+        <pre class="highlight"><code>npm install --save windtalk
+</code></pre>
+      </div>
+    </div>
+
+    <h2 id="full-api">Full API</h2>
+    <p>
+      <a href="https://github.com/pshihn/windtalk/wiki/Windtalk-API">Windtalk API</a>
+    </p>
+
+    <h2 id="examples">Examples</h2>
+    <p>
+      <a href="https://github.com/pshihn/windtalk/wiki/Examples">Examples page</a>
+    </p>
+
+    <h2 id="license">License</h2>
+    <p>
+      <a href="https://github.com/pshihn/windtalk/blob/master/LICENSE">MIT License</a> (c)
+      <a href="https://twitter.com/preetster">Preet Shihn</a>
+    </p>
+
+
+
+    <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+      This site is open source.
+      <a href="https://github.com/pshihn/windtalk/edit/gh-pages/README.md">Improve this page</a>.
+    </div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg="
+    crossorigin="anonymous"></script>
+  <script>anchors.add();</script>
+
+</body>
+
+</html>
