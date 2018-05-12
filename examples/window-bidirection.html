@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    iframe {
+      border: 1px solid;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>Iframe</h4>
+  <iframe id="iframe" src="./iframe-bidirection.html"></iframe>
+
+  <h1 id="count">0</h1>
+  <p>
+    <button onclick="incrementInIframe()">Increment in Iframe</button>
+  </p>
+
+  <script>
+    const iframe = document.getElementById('iframe');
+
+    // this links the iframe's exposed methods to iframeIncrement
+    const iframeIncrement = windtalk.link(iframe.contentWindow);
+
+    // call increment in the iframe
+    function incrementInIframe() {
+      iframeIncrement();
+    }
+
+    var count = 0;
+    // increment in this window
+    // this method is exposed so ifrane can call it
+    function incrementHere() {
+      count++;
+      document.getElementById('count').textContent = count;
+    }
+    // this exposes the method so iframe can call it
+    windtalk.expose(incrementHere);
+  </script>
+</body>
+
+</html>

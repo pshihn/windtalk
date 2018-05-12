@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <script src="../dist/windtalk.min.js"></script>
+</head>
+
+<body>
+  <h1 id="count">0</h1>
+  <p>
+    <button onclick="incrementInMainWindow()">Increment in Main window</button>
+  </p>
+
+  <script>
+    // this links the main window's increment method to mainIncrement
+    const mainIncrement = windtalk.link(window.top);
+    // call increment in the main window
+    function incrementInMainWindow() {
+      mainIncrement();
+    }
+
+    var count = 0;
+    function incrementHere() {
+      count++;
+      document.getElementById('count').textContent = count;
+    }
+    // expose this method to main window
+    windtalk.expose(incrementHere);
+  </script>
+</body>
+
+</html>
