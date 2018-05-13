@@ -22,12 +22,12 @@
   <script>
     const iframe = document.getElementById('iframe');
 
-    // this links the iframe's exposed methods to iframeIncrement
-    const iframeIncrement = windtalk.link(iframe.contentWindow);
+    // this links the iframe's exposed methods to remoteIncrement
+    const remoteIncrement = windtalk.link(iframe.contentWindow);
 
     // call increment in the iframe
     function incrementInIframe() {
-      iframeIncrement();
+      remoteIncrement();
     }
 
     var count = 0;

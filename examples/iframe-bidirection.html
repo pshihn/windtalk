@@ -11,11 +11,11 @@
   </p>
 
   <script>
-    // this links the main window's increment method to mainIncrement
-    const mainIncrement = windtalk.link(window.top);
+    // this links the main window's increment method to remoteIncrement
+    const remoteIncrement = windtalk.link(window.top);
     // call increment in the main window
     function incrementInMainWindow() {
-      mainIncrement();
+      remoteIncrement();
     }
 
     var count = 0;
