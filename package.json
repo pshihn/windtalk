@@ -1,9 +1,12 @@
 {
   "name": "windtalk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simplest way to communicate between windows/iframes.",
   "main": "dist/windtalk.umd.js",
+  "browser": "dist/dist/windtalk.min.js",
+  "module": "index.js",
   "jsnext:main": "index.js",
+  "types": "dist/windtalk.d.ts",
   "scripts": {
     "build": "npm run build-d && npm run build-umd",
     "build-d": "rollup index.js --o dist/windtalk.js --f iife --name \"windtalk\" && npm run minify-d",
