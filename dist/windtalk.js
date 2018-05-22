@@ -32,7 +32,7 @@ var windtalk = (function (exports) {
       this.c = 0; // counter
       this.cbs = {}; // callbacks
       self.addEventListener('message', event => {
-        const id = event.data && event.data.id;
+        const id = event.data && event.data.windtalk && event.data.id;
         const cb = id && this.cbs[id];
         if (cb) {
           delete this.cbs[id];
@@ -49,7 +49,7 @@ var windtalk = (function (exports) {
       const id = `${this.uid}-${++this.c}`;
       return new Promise((resolve, reject) => {
         this.cbs[id] = [resolve, reject];
-        this.w.postMessage(Object.assign({}, request, { id, args, target: this.uid }), '*');
+        this.w.postMessage(Object.assign({}, request, { id, args, target: this.uid, windtalk: true }), '*');
       });
     }
   }
@@ -62,12 +62,12 @@ var windtalk = (function (exports) {
     const _target = target;
     const w = endPoint || window.top;
     self.addEventListener('message', async event => {
-      const data = event.data || {};
-      data.path = data.path || [];
-      const reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
-      const id = data.id;
-      if (id && data.type) {
-        const msg = { id };
+      if (event.data && event.data.id && event.data.type && event.data.windtalk) {
+        const data = event.data;
+        data.path = data.path || [];
+        const id = data.id;
+        const reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
+        const msg = { id, windtalk: true };
         const ref = reduce(data.path);
         const refParent = reduce(data.path.slice(0, -1));
         switch (data.type) {

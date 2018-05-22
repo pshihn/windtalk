@@ -2,7 +2,7 @@
 
 # windtalk  🗣💨
 
-Micro lib (742 bytes gzipped) that provides a seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other. 
+Micro lib (764 bytes gzipped) that provides a seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other. 
 
 * Work with objects/functions defined in another window/iframe. 
 * All calls are async. Works great with async/await.
