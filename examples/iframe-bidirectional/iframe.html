@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <script src="../../dist/windtalk.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>Iframe Window</h4>
+  <input id="num" type="number" value="2">
+  <button onclick="cube()">CUBE</button>
+  <div id="message"></div>
+
+  <script>
+    const num = document.getElementById('num');
+    const message = document.getElementById('message');
+
+    // this links the main window's increment method to remoteIncrement
+    const remote = windtalk.link(window.top);
+    async function cube() {
+      const n = +num.value;
+      const result = await remote(n);
+      message.textContent = `Cube of ${n} is ${result}`;
+    }
+
+    function square(x) {
+      return x * x;
+    }
+    windtalk.expose(square);
+  </script>
+</body>
+
+</html>
