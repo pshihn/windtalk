@@ -1,7 +1,7 @@
 var windtalk = (function (exports) {
   'use strict';
 
-  let _target, _w, _cbs, _attached = false;
+  let _target, _remoteWindow, _callbacks, _attached;
 
   const _reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
 
@@ -9,7 +9,7 @@ var windtalk = (function (exports) {
     const data = event.data;
     let id, type, cb;
     if (id = data && data.id) {
-      if ((type = data.type) && _w && _target) {
+      if ((type = data.type) && _remoteWindow && _target) {
         data.path = data.path || [];
         const msg = { id };
         const ref = _reduce(data.path);
@@ -32,9 +32,9 @@ var windtalk = (function (exports) {
             }
             break;
         }
-        _w.postMessage(msg, '*');
-      } else if (_cbs && (cb = _cbs[id])) {
-        delete _cbs[id];
+        _remoteWindow.postMessage(msg, '*');
+      } else if (_callbacks && (cb = _callbacks[id])) {
+        delete _callbacks[id];
         if (data.error) {
           cb[1](new Error(data.error));
         } else {
@@ -59,7 +59,7 @@ var windtalk = (function (exports) {
       const args = request.args || [];
       const id = `${uid}-${++c}`;
       return new Promise((resolve, reject) => {
-        _cbs[id] = [resolve, reject];
+        _callbacks[id] = [resolve, reject];
         w.postMessage(Object.assign({}, request, { id, args }), '*');
       });
     };
@@ -88,12 +88,12 @@ var windtalk = (function (exports) {
   }
 
   function link(endPoint) {
-    _cbs = {};
+    _callbacks = {};
     return proxy(createRmote(endPoint));
   }
 
   function expose(target, endPoint) {
-    _w = endPoint || window.top;
+    _remoteWindow = endPoint || window.top;
     _target = target;
     _attach();
   }
