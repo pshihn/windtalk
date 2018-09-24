@@ -22,7 +22,7 @@
             msg.value = ref;
             break;
           case 'SET':
-            const prop = data.path.length && data.path[data.path.length - 1];
+            const prop = data.path.length && data.path.pop();
             if (prop) {
               refParent[prop] = data.value;
             }
