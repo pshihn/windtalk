@@ -4,7 +4,8 @@
   (factory((global.windtalk = {})));
 }(this, (function (exports) { 'use strict';
 
-  let _target, _remoteWindow, _callbacks, _attached;
+  let _target, _remoteWindow, _attached;
+  const _callbacks = {};
 
   const _reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
 
@@ -36,7 +37,7 @@
             break;
         }
         _remoteWindow.postMessage(msg, '*');
-      } else if (_callbacks && (cb = _callbacks[id])) {
+      } else if (cb = _callbacks[id]) {
         delete _callbacks[id];
         if (data.error) {
           cb[1](new Error(data.error));
@@ -91,7 +92,6 @@
   }
 
   function link(endPoint) {
-    _callbacks = {};
     return proxy(createRmote(endPoint));
   }
 
