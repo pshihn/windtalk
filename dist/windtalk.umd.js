@@ -4,7 +4,7 @@
   (factory((global.windtalk = {})));
 }(this, (function (exports) { 'use strict';
 
-  let _target, remoteWindow, _attached;
+  let _target, remoteWindow, isAttached;
   const callbacks = {};
 
   const reducePath = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
@@ -48,17 +48,17 @@
     }
   }
 
-  function _attach() {
-    if (!_attached) {
+  function attach() {
+    if (!isAttached) {
       self.addEventListener('message', messageHandler);
-      _attached = true;
+      isAttached = true;
     }
   }
 
-  function createRmote(w) {
+  function createRemote(w) {
     const uid = `${Date.now()}-${Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)}`;
     let c = 0;
-    _attach();
+    attach();
     return request => {
       const args = request.args || [];
       const id = `${uid}-${++c}`;
@@ -85,20 +85,20 @@
       set(_, prop, value) {
         return remote({ type: 'S', path: path.concat(prop), value });
       },
-      apply(_, thisArg, args) {
+      apply(_, __, args) {
         return remote({ type: 'A', path, args });
       }
     });
   }
 
   function link(endPoint) {
-    return proxy(createRmote(endPoint));
+    return proxy(createRemote(endPoint));
   }
 
   function expose(target, endPoint) {
     remoteWindow = endPoint || window.top;
     _target = target;
-    _attach();
+    attach();
   }
 
   exports.link = link;
