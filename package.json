@@ -1,18 +1,14 @@
 {
   "name": "windtalk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simplest way to communicate between windows/iframes.",
   "main": "dist/windtalk.umd.js",
   "browser": "dist/dist/windtalk.min.js",
-  "module": "index.js",
-  "jsnext:main": "index.js",
+  "module": "dist/windtalk.m.js",
+  "source": "index.js",
   "types": "dist/windtalk.d.ts",
   "scripts": {
-    "build": "npm run build-d && npm run build-umd",
-    "build-d": "rollup index.js --o dist/windtalk.js --f iife --name \"windtalk\" && npm run minify-d",
-    "minify-d": "babel-minify dist/windtalk.js -o dist/windtalk.min.js --mangle",
-    "build-umd": "rollup index.js --o dist/windtalk.umd.js --f umd --name \"windtalk\" && npm run minify-umd",
-    "minify-umd": "babel-minify dist/windtalk.umd.js -o dist/windtalk.umd.min.js --mangle",
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,7 +29,7 @@
   },
   "homepage": "https://github.com/pshihn/windtalk#readme",
   "devDependencies": {
-    "babel-minify": "^0.4.0",
-    "rollup": "^0.57.1"
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel-minify": "^6.0.0"
   }
 }

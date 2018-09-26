@@ -85,12 +85,14 @@ function proxy(remote, path) {
   });
 }
 
-export function link(endPoint) {
+function link(endPoint) {
   return proxy(createRemote(endPoint));
 }
 
-export function expose(target, endPoint) {
+function expose(target, endPoint) {
   remoteWindow = endPoint || window.top;
   _target = target;
   attach();
 }
+
+export { link, expose };

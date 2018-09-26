@@ -4,30 +4,31 @@
   (factory((global.windtalk = {})));
 }(this, (function (exports) { 'use strict';
 
-  let _target, _remoteWindow, _callbacks, _attached;
+  let _target, remoteWindow, isAttached;
+  const callbacks = {};
 
-  const _reduce = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
+  const reducePath = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
 
-  async function _handler(event) {
+  async function messageHandler(event) {
     const data = event.data;
     let id, type, cb;
     if (id = data && data.id) {
-      if ((type = data.type) && _remoteWindow && _target) {
+      if ((type = data.type) && remoteWindow && _target) {
         data.path = data.path || [];
         const msg = { id };
-        const ref = _reduce(data.path);
-        const refParent = _reduce(data.path.slice(0, -1));
+        const ref = reducePath(data.path);
+        const refParent = reducePath(data.path.slice(0, -1));
         switch (type) {
-          case 'GET':
+          case 'G': // Get
             msg.value = ref;
             break;
-          case 'SET':
-            const prop = data.path.length && data.path[data.path.length - 1];
+          case 'S': // Set
+            const prop = data.path.length && data.path.pop();
             if (prop) {
               refParent[prop] = data.value;
             }
             break;
-          case 'APPLY':
+          case 'A': // Apply
             try {
               msg.value = await ref.apply(refParent, data.args || []);
             } catch (err) {
@@ -35,9 +36,9 @@
             }
             break;
         }
-        _remoteWindow.postMessage(msg, '*');
-      } else if (_callbacks && (cb = _callbacks[id])) {
-        delete _callbacks[id];
+        remoteWindow.postMessage(msg, '*');
+      } else if (cb = callbacks[id]) {
+        delete callbacks[id];
         if (data.error) {
           cb[1](new Error(data.error));
         } else {
@@ -47,22 +48,22 @@
     }
   }
 
-  function _attach() {
-    if (!_attached) {
-      self.addEventListener('message', _handler);
-      _attached = true;
+  function attach() {
+    if (!isAttached) {
+      self.addEventListener('message', messageHandler);
+      isAttached = true;
     }
   }
 
-  function createRmote(w) {
+  function createRemote(w) {
     const uid = `${Date.now()}-${Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)}`;
     let c = 0;
-    _attach();
+    attach();
     return request => {
       const args = request.args || [];
       const id = `${uid}-${++c}`;
       return new Promise((resolve, reject) => {
-        _callbacks[id] = [resolve, reject];
+        callbacks[id] = [resolve, reject];
         w.postMessage(Object.assign({}, request, { id, args }), '*');
       });
     };
@@ -76,29 +77,28 @@
           if (path.length === 0) {
             return { then: () => rec };
           }
-          const p = remote({ type: 'GET', path });
+          const p = remote({ type: 'G', path });
           return p.then.bind(p);
         }
         return proxy(remote, path.concat(prop));
       },
       set(_, prop, value) {
-        return remote({ type: 'SET', path: path.concat(prop), value });
+        return remote({ type: 'S', path: path.concat(prop), value });
       },
-      apply(_, thisArg, args) {
-        return remote({ type: 'APPLY', path, args });
+      apply(_, __, args) {
+        return remote({ type: 'A', path, args });
       }
     });
   }
 
   function link(endPoint) {
-    _callbacks = {};
-    return proxy(createRmote(endPoint));
+    return proxy(createRemote(endPoint));
   }
 
   function expose(target, endPoint) {
-    _remoteWindow = endPoint || window.top;
+    remoteWindow = endPoint || window.top;
     _target = target;
-    _attach();
+    attach();
   }
 
   exports.link = link;
