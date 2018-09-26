@@ -1,4 +1,4 @@
-let _target, remoteWindow, isAttached;
+let _target, isAttached;
 const callbacks = {};
 
 const reducePath = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
@@ -7,7 +7,7 @@ async function messageHandler(event) {
   const data = event.data;
   let id, type, cb;
   if (id = data && data.id) {
-    if ((type = data.type) && remoteWindow && _target) {
+    if ((type = data.type) && _target) {
       data.path = data.path || [];
       const msg = { id };
       const ref = reducePath(data.path);
@@ -30,7 +30,7 @@ async function messageHandler(event) {
           }
           break;
       }
-      remoteWindow.postMessage(msg, '*');
+      event.source.postMessage(msg, '*');
     } else if (cb = callbacks[id]) {
       delete callbacks[id];
       if (data.error) {
@@ -89,8 +89,7 @@ export function link(endPoint) {
   return proxy(createRemote(endPoint));
 }
 
-export function expose(target, endPoint) {
-  remoteWindow = endPoint || window.top;
+export function expose(target) {
   _target = target;
   attach();
 }
