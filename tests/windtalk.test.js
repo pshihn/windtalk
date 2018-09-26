@@ -18,7 +18,7 @@ function ensureSetup() {
 
 ensureSetup();
 
-describe('sum', function () {
+describe('Expose function', function () {
   it('Frame1 - sum of arguments', async function () {
     const remote = frameLinks[0];
     const result = await remote(2, 3);
@@ -26,7 +26,7 @@ describe('sum', function () {
   });
 });
 
-describe('product', function () {
+describe('Expose object', function () {
   it('Frame2 - product of arguments', async function () {
     const remote = frameLinks[1];
     const result = await remote.multiply(2, 3);
@@ -39,7 +39,7 @@ describe('product', function () {
   });
 });
 
-describe('duplex', function () {
+describe('Duplex', function () {
   it('Frame2 - reflection', async function () {
     ref.reflection = 'Hello world';
     const remote = frameLinks[1];
