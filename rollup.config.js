@@ -40,14 +40,14 @@ export default [
   {
     input,
     output: {
-      file: `dist/windtalk.mjs`,
+      file: `dist/windtalk.m.js`,
       format: 'esm'
     }
   },
   {
     input,
     output: {
-      file: `dist/windtalk.min.mjs`,
+      file: `dist/windtalk.m.min.js`,
       format: 'esm'
     },
     plugins: [minify({ comments: false })]
