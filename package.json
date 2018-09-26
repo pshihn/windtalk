@@ -4,7 +4,7 @@
   "description": "Simplest way to communicate between windows/iframes.",
   "main": "dist/windtalk.umd.js",
   "browser": "dist/dist/windtalk.min.js",
-  "module": "dist/windtalk.mjs",
+  "module": "dist/windtalk.m.js",
   "source": "index.js",
   "types": "dist/windtalk.d.ts",
   "scripts": {
