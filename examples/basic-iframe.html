@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <title>Windtalk basic iframe example</title>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+    iframe {
+      display: block;
+      border: 1px solid #d8d8d8;
+      width: 215px;
+      height: 60px;
+      margin: 40px 0;
+    }
+    .panel {
+      margin: 40px 0;
+    }
+    #response {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    In this example, an iFrame exposes a <em>sum</em> function that adds two numbers. The host page passes two numbers
+    to the iframe to calculate the result.
+  </p>
+  <div class="panel">
+    <input id="n1" type="number" value="4">
+    <input id="n2" type="number" value="6">
+    <div>
+      <button onclick="doAdd();">ADD</button>
+    </div>
+    <div id="response"></div>
+  </div>
+  <iframe src="./iframes/sum.html"></iframe>
+
+  <script>
+    const response = document.getElementById('response');
+    const n1 = document.getElementById('n1');
+    const n2 = document.getElementById('n2');
+
+    const remote = windtalk.link(document.querySelector('iframe').contentWindow);
+
+    async function doAdd() {
+      const a = +n1.value;
+      const b = +n2.value;
+      const sum = await remote(a, b);
+      response.textContent = `Sum of ${a} and ${b} is ${sum}`;
+    }
+  </script>
+</body>
+
+
+</html>
