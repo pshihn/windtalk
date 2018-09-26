@@ -4,7 +4,7 @@
   (factory((global.windtalk = {})));
 }(this, (function (exports) { 'use strict';
 
-  let _target, remoteWindow, isAttached;
+  let _target, isAttached;
   const callbacks = {};
 
   const reducePath = list => list.reduce((o, prop) => (o ? o[prop] : o), _target);
@@ -13,7 +13,7 @@
     const data = event.data;
     let id, type, cb;
     if (id = data && data.id) {
-      if ((type = data.type) && remoteWindow && _target) {
+      if ((type = data.type) && _target) {
         data.path = data.path || [];
         const msg = { id };
         const ref = reducePath(data.path);
@@ -36,7 +36,7 @@
             }
             break;
         }
-        remoteWindow.postMessage(msg, '*');
+        event.source.postMessage(msg, '*');
       } else if (cb = callbacks[id]) {
         delete callbacks[id];
         if (data.error) {
@@ -95,8 +95,7 @@
     return proxy(createRemote(endPoint));
   }
 
-  function expose(target, endPoint) {
-    remoteWindow = endPoint || window.top;
+  function expose(target) {
     _target = target;
     attach();
   }
