@@ -1,0 +1,24 @@
+<html>
+
+<head>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Iframe Window - Add</p>
+  <script>
+    function add(a, b) {
+      return a + b;
+    }
+    windtalk.expose(add);
+  </script>
+</body>
+
+</html>

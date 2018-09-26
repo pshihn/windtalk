@@ -1,0 +1,30 @@
+<html>
+
+<head>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Iframe Window - Duplex</p>
+  <script>
+    const remote = windtalk.link(window.top);
+    windtalk.expose({
+      multiply(a, b) {
+        return a * b;
+      },
+      async reflect() {
+        const ret = await remote.getReflection();
+        return ret;
+      }
+    });
+  </script>
+</body>
+
+</html>

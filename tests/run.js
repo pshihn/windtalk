@@ -1,4 +1,4 @@
-import './sum.test.js';
+import './windtalk.test.js';
 
 mocha.checkLeaks();
 mocha.run();
