@@ -1,3 +1,5 @@
+import { expose, link } from '../index.js';
+
 let isSetup = false;
 const frameLinks = [];
 
@@ -8,10 +10,10 @@ const ref = {
 function ensureSetup() {
   if (!isSetup) {
     for (let i = 0; i < 3; i++) {
-      frameLinks.push(windtalk.link(document.getElementById(`if${i + 1}`).contentWindow));
+      frameLinks.push(link(document.getElementById(`if${i + 1}`).contentWindow));
     }
-    windtalk.expose(ref, document.getElementById(`if2`).contentWindow);
-    windtalk.expose(ref, document.getElementById(`if3`).contentWindow);
+    expose(ref, document.getElementById(`if2`).contentWindow);
+    expose(ref, document.getElementById(`if3`).contentWindow);
     isSetup = true;
   }
 }
