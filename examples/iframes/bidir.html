@@ -1,0 +1,41 @@
+<html>
+
+<head>
+  <script src="../../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+
+    #received {
+      margin: 20px 0 0;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="text" placeholder="enter text">
+  <div>
+    <button onclick="send();">Send text to top window</button>
+  </div>
+  <div id="received"></div>
+  <script>
+    const received = document.getElementById('received');
+    const textInput = document.getElementById('text');
+
+    const topSend = windtalk.link(window.top);
+    function send() {
+      topSend(textInput.value);
+    }
+
+    function receiveMessage(text) {
+      received.textContent = 'Received from top: ' + text;
+    }
+    windtalk.expose(receiveMessage);
+  </script>
+</body>
+
+</html>
