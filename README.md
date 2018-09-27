@@ -34,8 +34,9 @@ _This is where WindTalk comes in and provides you with that capability._
 
 WindTalk is essentially two methods:
 
-**expose** makes a function or object available to other windows. 
-**link** creates an interface for the exposed method/object in another winow
+_**expose**_ makes a function or object available to other windows. 
+
+_**link**_ creates an interface for the exposed method/object in another winow
 
 Let's consider a case where a parent window wants to interact with an object in an iframe.
 
@@ -61,7 +62,6 @@ color.update();
 ```
 
 ### Expose Functions (not just objects)
-Consider a case where one window wants to invoke a function in another window (or iframe) and get the result back.
 
 Window1:
 ```javascript
@@ -80,7 +80,7 @@ console.log(result); // 5
 
 ### Bidirectional
 
-Code in an iFrame can be invoked from the parent Window, but also the other way around. Any one can invoke the exposed object if they have a reference to the Window.
+Code in an iFrame can be invoked from the parent Window, and vice versa. Any one can invoke the exposed object if they have a reference to the Window object.
 
 ## Install
 
@@ -95,12 +95,6 @@ use it in ES6 modules:
 ```javascript
 import { expose, link } from 'windtalk';
 ```
-
-## Full API
-[Windtalk API](https://github.com/pshihn/windtalk/wiki/Windtalk-API)
-
-## Examples
-[Examples page](https://github.com/pshihn/windtalk/wiki/Examples)
 
 ## License
 [MIT License](https://github.com/pshihn/windtalk/blob/master/LICENSE) (c) [Preet Shihn](https://twitter.com/preetster)
