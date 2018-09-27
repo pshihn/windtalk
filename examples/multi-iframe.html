@@ -1,0 +1,77 @@
+<html>
+
+<head>
+  <title>Windtalk multi iframe example</title>
+  <script src="../dist/windtalk.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+    iframe {
+      border: 1px solid;
+      height: 200px;
+      display: block;
+    }
+    .panel {
+      margin: 40px 0;
+    }
+    #response {
+      margin-top: 20px;
+    }
+    label {
+      min-width: 50px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    In this example, the main window communicates with two iframes. Each iframe exposes an object that has properties
+    and methods.
+  </p>
+  <div class="panel">
+    <div>
+      <label>Red</label>
+      <input id="r" type="range" min="0" max="255" value="0">
+    </div>
+    <div>
+      <label>Green</label>
+      <input id="g" type="range" min="0" max="255" value="0">
+    </div>
+    <div>
+      <label>Blue</label>
+      <input id="b" type="range" min="0" max="255" value="0">
+    </div>
+    <div>
+      <button onclick="update(1);">UPDATE FRAME 1</button>
+      <button onclick="update(2);">UPDATE FRAME 2</button>
+    </div>
+  </div>
+
+  <div>FRAME1<iframe id="if1" src="./iframes/color.html"></iframe></div>
+  <div style="margin: 20px 0 0;">FRAME2<iframe id="if2" src="./iframes/color.html"></iframe></div>
+
+  <script>
+    const r = document.getElementById('r');
+    const g = document.getElementById('g');
+    const b = document.getElementById('b');
+
+    const frame1 = windtalk.link(document.getElementById('if1').contentWindow);
+    const frame2 = windtalk.link(document.getElementById('if2').contentWindow);
+
+    function update(frameNumber) {
+      const frame = frameNumber === 1 ? frame1 : frame2;
+      frame.red = r.value;
+      frame.green = g.value;
+      frame.blue = b.value;
+      frame.update();
+    }
+  </script>
+</body>
+
+
+</html>
