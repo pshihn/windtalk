@@ -1,15 +1,43 @@
 ![windtalk banner](https://pshihn.github.io/windtalk/images/banner.png)
 
-# windtalk  🗣💨
+# WindTalk
 
-Micro lib (720 bytes gzipped) that provides a seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other. 
+A seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other. 
 
-* Work with objects/functions defined in another window/iframe. 
-* All calls are async. Works great with async/await.
+Windtalk exports a function or an object from within an iFrame or Window. This can now be invoked from any other window.
+
+* All calls are async. Works great with promises, async/await
+* Only 693 bytes gzipped
+
+## Motivation
+
+How does code in one window communicate with an iFrame or another window?
+
+The traditional way to do this is by passing messages (See [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)). The host window will send a message to iFrame. iFrame will receive a message, parse the message and then call some code. The iFrame will then take the result of the code and then send a message to the host window with the result. The host window will now receive the message, parse it, and then call its own code. 
+
+In theory, this is fine. One can wrap this boilerplate message parsing to make the life easier. But when you have new code to add, you have to add another `if` clause in message parsing and then call the new code. 
+
+Wouldn't it be nice if we could just _call the code in the other window like **any other code!**_
+
+```javascript
+iframe.name = 'Bilbo Baggins';
+await iframe.updateProfile();
+iframe.resize();
+```
+
+This is possible to achieve if all the message boilerplate code is tethered behind a [proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+
+_This is where WindTalk comes in and provides you with that capability._
+
 
 ## Usage
-Let's consider a case where a parent window wants to interact with an object in an iframe.
 
+WindTalk is essentially two methods:
+
+**expose** makes a function or object available to other windows. 
+**link** creates an interface for the exposed method/object in another winow
+
+Let's consider a case where a parent window wants to interact with an object in an iframe.
 
 In the iframe:
 ```javascript
@@ -50,6 +78,10 @@ let result = await doAdd(2, 3);
 console.log(result); // 5
 ```
 
+### Bidirectional
+
+Code in an iFrame can be invoked from the parent Window, but also the other way around. Any one can invoke the exposed object if they have a reference to the Window.
+
 ## Install
 
 Download the latest from [dist folder](https://github.com/pshihn/windtalk/tree/master/dist)
@@ -57,6 +89,11 @@ Download the latest from [dist folder](https://github.com/pshihn/windtalk/tree/m
 or from npm:
 ```
 npm install --save windtalk
+```
+
+use it in ES6 modules:
+```javascript
+import { expose, link } from 'windtalk';
 ```
 
 ## Full API
