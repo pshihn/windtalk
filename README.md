@@ -20,9 +20,9 @@ In theory, this is fine. One can wrap this boilerplate message parsing to make t
 Wouldn't it be nice if we could just _call the code in the other window like **any other code!**_
 
 ```javascript
-iframe.name = 'Bilbo Baggins';
-await iframe.updateProfile();
-iframe.resize();
+objectInIframe.name = 'Bilbo Baggins';
+await objectInIframe.updateProfile();
+objectInIframe.resize();
 ```
 
 This is possible to achieve if all the message boilerplate code is tethered behind a [proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
