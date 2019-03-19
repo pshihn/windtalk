@@ -2,7 +2,7 @@
 
 <head>
   <title>Windtalk multi iframe example</title>
-  <script src="../dist/windtalk.min.js"></script>
+  <script src="../dist/windtalk.js"></script>
   <style>
     body {
       margin: 0;
@@ -10,17 +10,21 @@
       font-family: sans-serif;
       font-size: 16px;
     }
+
     iframe {
       border: 1px solid;
-      height: 200px;
+      height: 225px;
       display: block;
     }
+
     .panel {
       margin: 40px 0;
     }
+
     #response {
       margin-top: 20px;
     }
+
     label {
       min-width: 50px;
       display: inline-block;
@@ -70,6 +74,15 @@
       frame.blue = b.value;
       frame.update();
     }
+
+    function reset() {
+      r.value = 0;
+      g.value = 0;
+      b.value = 0;
+      update(1);
+      update(2);
+    }
+    windtalk.expose(reset);
   </script>
 </body>
 
