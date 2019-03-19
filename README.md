@@ -6,8 +6,8 @@ A seamless way for two <b><i>WIND</i></b>ows to <b><i>TALK</i></b> to each other
 
 Windtalk exports a function or an object from within an iFrame or Window. This can now be invoked from any other window.
 
-* All calls are async. Works great with promises, async/await
-* Only 693 bytes gzipped
+* All calls are async. Works great with async/await
+* Only 677 bytes gzipped
 
 ## Motivation
 
